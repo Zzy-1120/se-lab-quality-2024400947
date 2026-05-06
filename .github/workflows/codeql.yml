@@ -6,8 +6,8 @@ on:
   pull_request:
     branches: [ "main" ]
   schedule:
-    - cron: '0 0 * * 0'  # 每周运行一次
-  workflow_dispatch:  # 允许手动触发
+    - cron: '0 0 * * 0'
+  workflow_dispatch:
 
 jobs:
   analyze:
@@ -24,20 +24,20 @@ jobs:
       matrix:
         include:
           - language: python
-            build-mode: none  # Python 不需要编译
+            build-mode: none
 
     steps:
     - name: Checkout repository
       uses: actions/checkout@v4
 
     - name: Initialize CodeQL
-      uses: github/codeql-action/init@v3
+      uses: github/codeql-action/init@v4
       with:
         languages: ${{ matrix.language }}
         build-mode: ${{ matrix.build-mode }}
-        queries: security-and-quality  # 启用更多质量检查
+        queries: security-and-quality
 
     - name: Perform CodeQL Analysis
-      uses: github/codeql-action/analyze@v3
+      uses: github/codeql-action/analyze@v4
       with:
         category: "/language:${{matrix.language}}"
