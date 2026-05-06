@@ -1,23 +1,30 @@
-name: "CodeQL"
+name: "CodeQL Advanced"
 
 on:
   push:
     branches: [ "main" ]
   pull_request:
     branches: [ "main" ]
+  schedule:
+    - cron: '0 0 * * 0'  # 每周运行一次
+  workflow_dispatch:  # 允许手动触发
 
 jobs:
   analyze:
-    name: Analyze
+    name: Analyze (${{ matrix.language }})
     runs-on: ubuntu-latest
     permissions:
       security-events: write
+      packages: read
+      actions: read
       contents: read
 
     strategy:
       fail-fast: false
       matrix:
-        language: [ 'python' ]
+        include:
+          - language: python
+            build-mode: none  # Python 不需要编译
 
     steps:
     - name: Checkout repository
@@ -27,7 +34,10 @@ jobs:
       uses: github/codeql-action/init@v3
       with:
         languages: ${{ matrix.language }}
-        queries: security-and-quality
+        build-mode: ${{ matrix.build-mode }}
+        queries: security-and-quality  # 启用更多质量检查
 
     - name: Perform CodeQL Analysis
       uses: github/codeql-action/analyze@v3
+      with:
+        category: "/language:${{matrix.language}}"
