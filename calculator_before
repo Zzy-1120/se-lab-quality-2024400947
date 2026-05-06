@@ -33,3 +33,4 @@ unused_variable = 42
 # 4. 命名不规范（可选）
 def DoSomething():
     pass
+# trigger scan
