@@ -1,0 +1,35 @@
+# 1. 重复代码块
+def add_and_print(a, b):
+    result = a + b
+    print("The sum is", result)
+    return result
+
+def add_and_display(x, y):
+    result = x + y
+    print("The sum is", result)
+    return result
+
+# 2. 过长函数
+def long_function():
+    print("Step 1")
+    print("Step 2")
+    print("Step 3")
+    print("Step 4")
+    print("Step 5")
+    print("Step 6")
+    print("Step 7")
+    print("Step 8")
+    print("Step 9")
+    print("Step 10")
+    print("Step 11")
+    print("Step 12")
+    print("Step 13")
+    print("Step 14")
+    print("Step 15")
+
+# 3. 未使用的变量
+unused_variable = 42
+
+# 4. 命名不规范（可选）
+def DoSomething():
+    pass
